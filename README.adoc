@@ -43,7 +43,7 @@ Refer to link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/github-a
 
 == Usage example
 
-The following is a basic example for using the v3 action:
+The following is an example for using the action:
 
 [source,yaml]
 ----
