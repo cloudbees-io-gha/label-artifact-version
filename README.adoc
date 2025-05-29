@@ -1,0 +1,72 @@
+= GitHub Action: Manage label(s) to an existing artifact version in the CloudBees platform
+
+Use this GitHub Action (GHA) to manage label(s) to an existing artifact version. To learn more about working with artifacts in the platform, refer to the link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/workflows/build-artifacts[build artifacts documentation].
+
+== Prerequisites
+
+Set up the CloudBees platform and GHA to work together, providing key features of the platform to GHA workflows.
+Refer to link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/github-actions/gha-getting-started[Getting started with GHA integration] for more information.
+
+== Inputs
+
+[cols="2a,1a,1a,3a",options="header"]
+.Input details
+|===
+
+| Input name
+| Data type
+| Required?
+| Description
+
+
+| `artifact-id`
+| String
+| Yes
+| The unique identifier of an artifact.
+
+| `cloudbees-url`
+| String
+| No
+| The CloudBees platform URL. The default value is `"https://api.cloudbees.io"`.
+
+| `labels`
+| String
+| Yes
+| A comma-separated list of artifact labels.
+
+| `operation`
+| String
+| No
+| The type of action to be performed with labels of an artifact. `ADD`, `REMOVE` or `REPLACE` are options available. `REPLACE` is used as default value.
+
+|===
+
+== Usage example
+
+The following is a basic example for using the v3 action:
+
+[source,yaml]
+----
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - name: label-artifact
+        uses: cloudbees-io-gha/label-artifact-version@v1
+        with:
+          artifact-id: "e0a17cfd-b2b0-4150-b077-d320e10547c8"
+          labels: "<add,comma,separated,label,list,here>"
+          operation: "ADD"
+----
+After the run has completed, the labels are updated for the given artifact version and is displayed in the Artifacts list tab in the platform.
+
+
+== License
+
+This code is made available under the
+link:https://opensource.org/license/mit/[MIT license].
+
+== References
+
+* Learn more about link:https://docs.cloudbees.com/docs/cloudbees-saas-platform-actions/latest/[using actions in CloudBees workflows].
+* Learn about link:https://docs.cloudbees.com/docs/cloudbees-saas-platform/latest/[the CloudBees platform].
