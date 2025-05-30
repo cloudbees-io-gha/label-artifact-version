@@ -1,0 +1,31 @@
+name: 'Label Artifact Version'
+description: 'Use this action to manage label(s) to an existing artifact version in CloudBees platform.'
+
+branding:
+  icon: 'command'
+  color: 'purple'
+
+inputs:
+  cloudbees-url:
+    description: 'The CloudBees platform URL.'
+    required: false
+    default: "https://api.cloudbees.io"
+  artifact-id:
+    description: 'The unique identifier of an artifact.'
+    required: true
+  labels:
+    description: 'A comma-separated list of artifact labels.'
+    required: true
+  operation:
+    description: 'The type of action to be performed with labels of an artifact. ADD OR REMOVE are options available. ADD is used as default value.'
+    required: false
+    default: "ADD"
+
+runs:
+  using: "docker"
+  image: "docker://public.ecr.aws/l7o7z1g8/actions/gha-label-artifact-version:main-344c2b7611aa06a4ddf298b378f8d8bef417c846"
+  env:
+    CLOUDBEES_API_URL: ${{ inputs.cloudbees-url }}
+    ARTIFACT_ID: ${{ inputs.artifact-id }}
+    LABELS: ${{ inputs.labels }}
+    OPERATION: ${{ inputs.operation }}
