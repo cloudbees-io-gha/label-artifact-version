@@ -17,9 +17,9 @@ inputs:
     description: 'A comma-separated list of artifact labels.'
     required: true
   operation:
-    description: 'The type of action to be performed with labels of an artifact. ADD, REMOVE or REPLACE are options available. REPLACE is used as default value.'
+    description: 'The type of action to be performed with labels of an artifact. ADD OR REMOVE are options available. ADD is used as default value.'
     required: false
-    default: "REPLACE"
+    default: "ADD"
 
 runs:
   using: "docker"
