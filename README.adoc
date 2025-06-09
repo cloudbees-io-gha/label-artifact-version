@@ -1,6 +1,7 @@
-= GitHub Action: Manage label(s) to an existing artifact version in the CloudBees platform
+= GitHub Action: Manage artifact labels in the CloudBees platform
 
-Use this GitHub Action (GHA) to manage label(s) to an existing artifact version. To learn more about working with artifacts in the platform, refer to the link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/workflows/build-artifacts[build artifacts documentation].
+Use this GitHub Action (GHA) to create, update, and remove labels on existing artifacts in the CloudBees platform.
+To learn more about organizing your artifacts using labels, refer to link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/workflows/artifacts#labels[Artifact labels].
 
 == Prerequisites
 
@@ -18,16 +19,10 @@ Refer to link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/github-a
 | Required?
 | Description
 
-
 | `artifact-id`
 | String
 | Yes
-| The unique identifier of an artifact.
-
-| `cloudbees-url`
-| String
-| No
-| The CloudBees platform URL. The default value is `"https://api.cloudbees.io"`.
+| The identifier of the artifact in the CloudBees platform.^<<footnotes,[1]>>^
 
 | `labels`
 | String
@@ -37,29 +32,114 @@ Refer to link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/github-a
 | `operation`
 | String
 | No
-| The type of action to be performed with labels of an artifact. `ADD` or `REMOVE` are options available. `ADD` is used as default value.
+| The labelling activity to be performed.
+The following options are valid:
+
+* `ADD`, to apply label(s).
+* `REMOVE`, to remove label(s).
+The default is `ADD`.
+
+| `cloudbees-url`
+| String
+| No
+| The CloudBees platform URL.
+The default value is `"https://api.cloudbees.io"`.
 
 |===
 
-== Usage example
+[#footnotes]
+Obtain the multi-hexadecimal artifact ID from the output of running the link:https://github.com/cloudbees-io-gha/register-build-artifact[Register build artifact action] in a GHA workflow.
 
-The following is an example for using the action:
+== Usage examples
+
+=== Basic example
+
+The following basic example adds the labels `For Production` and `Testing Passed` to an existing artifact:
 
 [source,yaml]
 ----
+
+        steps:
+        - name: Revise artifact labelling
+          uses: cloudbees-io-gha/label-artifact-version@v1
+          with:
+            artifact-id: "1234abcd-56ef-78gh-90ij-klmnop123456"
+            labels: "For Production,Testing Passed"
+
+----
+
+=== Removing labels
+
+In the following example, an artifact has three labels, `Label1`, `Label2`, and `Label3`.
+The action removes the `Label2` and `Label3` labels from the artifact, leaving it with the single label `Label1`.
+
+[source,yaml]
+----
+        steps:
+        - name: Label an artifact
+          uses: cloudbees-io-gha/label-artifact-version@v1
+          with:
+            artifact-id: "1234abcd-56ef-78gh-90ij-klmnop123456"
+            labels: "Label2,Label3"
+            operation: REMOVE
+
+----
+
+=== Updating labels
+
+The following GHA workflow example uses this action to register an artifact and then update its labels in the CloudBees platform.
+
+.Example GHA workflow YAML file
+[.collapsible]
+--
+
+[source, yaml,role="default-expanded"]
+----
+name: Label artifacts
+
+on:
+    workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
     steps:
-      - name: label-artifact
+
+      - name: Register Build Artifact in Cloudbees Platform
+        uses: cloudbees-io-gha/register-build-artifact@v3
+        id: go-action
+        with:
+          name: "gha-artifact-test"
+          version: 1.0.0
+          url: "docker.io/example:latest"
+          cloudbees-url: "https://api.cloudbees.io"
+          digest: "sha256:1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqr"
+          label: "For testing"
+          type: "docker"
+
+      - name: Registered Build ArtifactId
+        run: echo 'Registered Build ArtifactId ${{ steps.go-action.outputs.cbp_artifact_id }}'
+
+      - name: Label Artifact -- remove
         uses: cloudbees-io-gha/label-artifact-version@v1
         with:
-          artifact-id: "e0a17cfd-b2b0-4150-b077-d320e10547c8"
-          labels: "<add,comma,separated,label,list,here>"
-          operation: "ADD"
-----
-After the run has completed, the labels are updated for the given artifact version and is displayed in the Artifacts list tab in the platform.
+          artifact-id: ${{ steps.go-action.outputs.cbp_artifact_id }}
+          labels: "For testing"
+          operation: REMOVE
 
+      - name: Label Artifact -- add
+        uses: cloudbees-io-gha/label-artifact-version@v1
+        with:
+          artifact-id: ${{ steps.go-action.outputs.cbp_artifact_id }}
+          labels: "For production"
+
+----
+--
+
+After the run has completed, the artifact label is updated from "For testing" to "For production" for the given artifact version, and the label is displayed in the Artifacts list tab in the platform.
 
 == License
 
@@ -68,5 +148,5 @@ link:https://opensource.org/license/mit/[MIT license].
 
 == References
 
-* Learn more about link:https://docs.cloudbees.com/docs/cloudbees-saas-platform-actions/latest/[using actions in CloudBees workflows].
+* Learn more about link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/github-actions/intro[using GitHub Actions with the CloudBees platform].
 * Learn about link:https://docs.cloudbees.com/docs/cloudbees-saas-platform/latest/[the CloudBees platform].
