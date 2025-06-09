@@ -71,7 +71,7 @@ The following basic example adds the labels `For Production` and `Testing Passed
 === Removing labels
 
 In the following example, an artifact has three labels, `Label1`, `Label2`, and `Label3`.
-The action removes the `Label2` and `Label3` labels from the artifact, leaving it with the single label `Label1`.
+Invoking the action removes the `Label2` and `Label3` labels, so that the artifact remains labelled only with `Label1`.
 
 [source,yaml]
 ----
