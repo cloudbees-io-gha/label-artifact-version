@@ -1,6 +1,6 @@
-= GitHub Action: Manage artifact labels in the CloudBees platform
+= GitHub Action: Manage artifact version labels in the CloudBees platform
 
-Use this GitHub Action (GHA) to create, update, and remove labels on existing artifacts in the CloudBees platform.
+Use this GitHub Action (GHA) to create, update, and remove labels on existing artifact versions in the CloudBees platform.
 To learn more about organizing your artifacts using labels, refer to link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/workflows/artifacts#labels[Artifact labels].
 
 == Prerequisites
@@ -54,7 +54,7 @@ Obtain the multi-hexadecimal artifact ID from the output of running the link:htt
 
 === Basic example
 
-The following basic example adds the labels `For Production` and `Testing Passed` to an existing artifact:
+The following basic example adds the labels `For Production` and `Testing Passed` to an existing artifact version:
 
 [source,yaml]
 ----
@@ -70,7 +70,7 @@ The following basic example adds the labels `For Production` and `Testing Passed
 
 === Removing labels
 
-In the following example, an artifact has three labels, `Label1`, `Label2`, and `Label3`.
+In the following example, an artifact version has three labels, `Label1`, `Label2`, and `Label3`.
 Invoking the action removes the `Label2` and `Label3` labels, so that the artifact remains labelled only with `Label1`.
 
 [source,yaml]
@@ -87,7 +87,7 @@ Invoking the action removes the `Label2` and `Label3` labels, so that the artifa
 
 === Updating labels
 
-The following GHA workflow example uses this action to register an artifact and then update its labels in the CloudBees platform.
+The following GHA workflow example uses this action to register an artifact version and then update its labels in the CloudBees platform.
 
 .Example GHA workflow YAML file
 [.collapsible]
