@@ -32,7 +32,7 @@ Refer to link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/github-a
 | `operation`
 | String
 | No
-| The labelling activity to be performed.
+| The labeling activity to be performed.
 The following options are valid:
 
 * `ADD`, to apply label(s).
