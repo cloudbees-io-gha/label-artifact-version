@@ -1,6 +1,6 @@
-= GitHub Action: Manage artifact labels in the CloudBees platform
+= GitHub Action: Manage artifact version labels in the CloudBees platform
 
-Use this GitHub Action (GHA) to create, update, and remove labels on existing artifacts in the CloudBees platform.
+Use this GitHub Action (GHA) to create, update, and remove labels on existing artifact versions in the CloudBees platform.
 To learn more about organizing your artifacts using labels, refer to link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/workflows/artifacts#labels[Artifact labels].
 
 == Prerequisites
@@ -32,7 +32,7 @@ Refer to link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/github-a
 | `operation`
 | String
 | No
-| The labelling activity to be performed.
+| The labeling activity to be performed.
 The following options are valid:
 
 * `ADD`, to apply label(s).
@@ -54,7 +54,7 @@ Obtain the multi-hexadecimal artifact ID from the output of running the link:htt
 
 === Basic example
 
-The following basic example adds the labels `For Production` and `Testing Passed` to an existing artifact:
+The following basic example adds the labels `For Production` and `Testing Passed` to an existing artifact version:
 
 [source,yaml]
 ----
@@ -63,14 +63,14 @@ The following basic example adds the labels `For Production` and `Testing Passed
         - name: Revise artifact labelling
           uses: cloudbees-io-gha/label-artifact-version@v1
           with:
-            artifact-id: "1234abcd-56ef-78gh-90ij-klmnop123456"
+            artifact-id: "1234abcd-56ef-78ab-90cd-efabcd123456"
             labels: "For Production,Testing Passed"
 
 ----
 
 === Removing labels
 
-In the following example, an artifact has three labels, `Label1`, `Label2`, and `Label3`.
+In the following example, an artifact version has three labels, `Label1`, `Label2`, and `Label3`.
 Invoking the action removes the `Label2` and `Label3` labels, so that the artifact remains labelled only with `Label1`.
 
 [source,yaml]
@@ -79,7 +79,7 @@ Invoking the action removes the `Label2` and `Label3` labels, so that the artifa
         - name: Label an artifact
           uses: cloudbees-io-gha/label-artifact-version@v1
           with:
-            artifact-id: "1234abcd-56ef-78gh-90ij-klmnop123456"
+            artifact-id: "1234abcd-56ef-78ab-90cd-efabcd123456"
             labels: "Label2,Label3"
             operation: REMOVE
 
@@ -87,7 +87,7 @@ Invoking the action removes the `Label2` and `Label3` labels, so that the artifa
 
 === Updating labels
 
-The following GHA workflow example uses this action to register an artifact and then update its labels in the CloudBees platform.
+The following GHA workflow example uses this action to register an artifact version and then update its labels in the CloudBees platform.
 
 .Example GHA workflow YAML file
 [.collapsible]
@@ -116,7 +116,7 @@ jobs:
           version: 1.0.0
           url: "docker.io/example:latest"
           cloudbees-url: "https://api.cloudbees.io"
-          digest: "sha256:1234567890abcdefghijklmnopqrstuvwxyz1234567890abcdefghijklmnopqr"
+          digest: "sha256:1234567890abcdef1234abcdef12ab3456ab7890abcd1234bcdef1234abcd123"
           label: "For testing"
           type: "docker"
 
@@ -149,4 +149,4 @@ link:https://opensource.org/license/mit/[MIT license].
 == References
 
 * Learn more about link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/github-actions/intro[using GitHub Actions with the CloudBees platform].
-* Learn about link:https://docs.cloudbees.com/docs/cloudbees-saas-platform/latest/[the CloudBees platform].
+* Learn about link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/[the CloudBees platform].
