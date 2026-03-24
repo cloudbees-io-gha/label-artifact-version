@@ -1,11 +1,11 @@
-= GitHub Action: Manage artifact labels in the CloudBees platform
+= GitHub Action: Manage artifact labels in CloudBees Unify
 
-Use this GitHub Action (GHA) to create, update, and remove labels on existing artifacts in the CloudBees platform.
+Use this GitHub Action (GHA) to create, update, and remove labels on existing artifacts in CloudBees Unify.
 To learn more about organizing your artifacts using labels, refer to link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/workflows/artifacts#labels[Artifact labels].
 
 == Prerequisites
 
-Set up the CloudBees platform and GHA to work together, providing key features of the platform to GHA workflows.
+Set up CloudBees Unify and GHA to work together, providing key features of the platform to GHA workflows.
 Refer to link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/github-actions/gha-getting-started[Getting started with GHA integration] for more information.
 
 == Inputs
@@ -22,7 +22,7 @@ Refer to link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/github-a
 | `artifact-id`
 | String
 | Yes
-| The identifier of the artifact in the CloudBees platform.^<<footnotes,[1]>>^
+| The identifier of the artifact in CloudBees Unify.^<<footnotes,[1]>>^
 
 | `labels`
 | String
@@ -42,7 +42,7 @@ The default is `ADD`.
 | `cloudbees-url`
 | String
 | No
-| The CloudBees platform URL.
+| CloudBees Unify URL.
 The default value is `"https://api.cloudbees.io"`.
 
 |===
@@ -87,7 +87,7 @@ Invoking the action removes the `Label2` and `Label3` labels, so that the artifa
 
 === Updating labels
 
-The following GHA workflow example uses this action to register an artifact and then update its labels in the CloudBees platform.
+The following GHA workflow example uses this action to register an artifact and then update its labels in CloudBees Unify.
 
 .Example GHA workflow YAML file
 [.collapsible]
@@ -148,5 +148,5 @@ link:https://opensource.org/license/mit/[MIT license].
 
 == References
 
-* Learn more about link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/github-actions/intro[using GitHub Actions with the CloudBees platform].
-* Learn about link:https://docs.cloudbees.com/docs/cloudbees-saas-platform/latest/[the CloudBees platform].
+* Learn more about link:https://docs.cloudbees.com/docs/cloudbees-platform/latest/github-actions/intro[using GitHub Actions with CloudBees Unify].
+* Learn about link:https://docs.cloudbees.com/docs/cloudbees-saas-platform/latest/[CloudBees Unify].
