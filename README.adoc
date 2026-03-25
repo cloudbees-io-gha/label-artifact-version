@@ -42,7 +42,7 @@ The default is `ADD`.
 | `cloudbees-url`
 | String
 | No
-| CloudBees Unify URL.
+| The CloudBees Unify URL.
 The default value is `"https://api.cloudbees.io"`.
 
 |===
