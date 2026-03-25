@@ -1,5 +1,5 @@
-name: 'Manage artifact labels in Platform'
-description: 'Create, update, and remove labels on existing artifacts in the CloudBees platform.'
+name: 'Manage artifact labels in Unify'
+description: 'Create, update, and remove labels on existing artifacts in CloudBees Unify.'
 
 branding:
   icon: 'command'
@@ -7,7 +7,7 @@ branding:
 
 inputs:
   cloudbees-url:
-    description: 'The CloudBees platform URL.'
+    description: 'The CloudBees Unify URL.'
     required: false
     default: "https://api.cloudbees.io"
   artifact-id:
